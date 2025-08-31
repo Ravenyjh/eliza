@@ -387,7 +387,7 @@ export function createApiRouter(
   );
 
   // Rate limiting - should be early in middleware chain
-  router.use(createApiRateLimit());
+  // router.use(createApiRateLimit());
 
   // Additional security middleware
   router.use(securityMiddleware());

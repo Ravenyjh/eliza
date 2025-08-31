@@ -23,13 +23,10 @@ import {
 const replyTemplate = `# Task: Generate dialog for the character {{agentName}}.
 {{providers}}
 # Instructions: Write the next message for {{agentName}}.
-"thought" should be a short description of what the agent is thinking about and planning.
-"message" should be the next message for {{agentName}} which they will send to the conversation.
 
 Response format should be formatted in a valid JSON block like this:
 \`\`\`json
 {
-    "thought": "<string>",
     "message": "<string>"
 }
 \`\`\`
@@ -81,7 +78,6 @@ export const replyAction = {
     });
 
     const responseContent = {
-      thought: response.thought,
       text: (response.message as string) || '',
       actions: ['REPLY'],
     };

@@ -35,7 +35,7 @@ These are the available valid actions:
 </actionNames>
 
 <instructions>
-Write a thought and plan for {{agentName}} and decide what actions to take. Also include the providers that {{agentName}} will use to have the right context for responding and acting, if any.
+Decide what actions to take and write the response message. Also include the providers that {{agentName}} will use to have the right context for responding and acting, if any.
 
 IMPORTANT ACTION ORDERING RULES:
 - Actions are executed in the ORDER you list them - the order MATTERS!
@@ -56,12 +56,11 @@ IMPORTANT PROVIDER SELECTION RULES:
 - If the message asks about the environment or world context, include "WORLD" in your providers list
 - If you need external knowledge, information, or context beyond the current conversation to provide a helpful response, include "KNOWLEDGE" in your providers list
 
-First, think about what you want to do next and plan your actions. Then, write the next message and include the actions you plan to take.
+Respond immediately with the actions and message.
 </instructions>
 
 <keys>
-"thought" should be a short description of what the agent is thinking about and planning.
-"actions" should be a comma-separated list of the actions {{agentName}} plans to take based on the thought, IN THE ORDER THEY SHOULD BE EXECUTED (if none, use IGNORE, if simply responding with text, use REPLY)
+"actions" should be a comma-separated list of the actions {{agentName}} plans to take, IN THE ORDER THEY SHOULD BE EXECUTED (if none, use IGNORE, if simply responding with text, use REPLY)
 "providers" should be a comma-separated list of the providers that {{agentName}} will use to have the right context for responding and acting (NEVER use "IGNORE" as a provider - use specific provider names like ATTACHMENTS, ENTITIES, FACTS, KNOWLEDGE, etc.)
 "text" should be the text of the next message for {{agentName}} which they will send to the conversation.
 </keys>
@@ -72,7 +71,6 @@ Go directly to the XML response format without any preamble or explanation.
 
 Respond using XML format like this:
 <response>
-    <thought>Your thought here</thought>
     <actions>ACTION1,ACTION2</actions>
     <providers>PROVIDER1,PROVIDER2</providers>
     <text>Your response text here</text>
@@ -86,21 +84,18 @@ export const postCreationTemplate = `# Task: Create a post in the voice and styl
 Example task outputs:
 1. A post about the importance of AI in our lives
 <response>
-  <thought>I am thinking about writing a post about the importance of AI in our lives</thought>
   <post>AI is changing the world and it is important to understand how it works</post>
   <imagePrompt>A futuristic cityscape with flying cars and people using AI to do things</imagePrompt>
 </response>
 
 2. A post about dogs
 <response>
-  <thought>I am thinking about writing a post about dogs</thought>
   <post>Dogs are man's best friend and they are loyal and loving</post>
   <imagePrompt>A dog playing with a ball in a park</imagePrompt>
 </response>
 
 3. A post about finding a new job
 <response>
-  <thought>Getting a job is hard, I bet there's a good tweet in that</thought>
   <post>Just keep going!</post>
   <imagePrompt>A person looking at a computer screen with a job search website</imagePrompt>
 </response>
@@ -113,14 +108,12 @@ Your response should not contain any questions. Brief, concise statements only. 
 
 Your output should be formatted in XML like this:
 <response>
-  <thought>Your thought here</thought>
   <post>Your post text here</post>
   <imagePrompt>Optional image prompt here</imagePrompt>
 </response>
 
 The "post" field should be the post you want to send. Do not including any thinking or internal reflection in the "post" field.
 The "imagePrompt" field is optional and should be a prompt for an image that is relevant to the post. It should be a single sentence that captures the essence of the post. ONLY USE THIS FIELD if it makes sense that the post would benefit from an image.
-The "thought" field should be a short description of what the agent is thinking about before responding, inlcuding a brief justification for the response. Includate an explanation how the post is relevant to the topic but unique and different than other posts.
 
 Do NOT include any thinking, reasoning, or <think> sections in your response. 
 Go directly to the XML response format without any preamble or explanation.
